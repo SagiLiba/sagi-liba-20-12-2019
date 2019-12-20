@@ -10,11 +10,36 @@ export default class Forcast extends React.Component {
             <div className='favorite-city'>Tel Aviv - 22C</div>
           </div>
           <div className='forcast-bottom'>
-            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
-            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
-            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
-            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
-            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
+            <ForcastDay
+              day='Sunday'
+              temperature='17C'
+              image={require('../../assets/sun.png')}
+              onClickAction={() => {}}
+            />
+            <ForcastDay
+              day='Sunday'
+              temperature='17C'
+              image={require('../../assets/sun.png')}
+              onClickAction={() => {}}
+            />
+            <ForcastDay
+              day='Sunday'
+              temperature='17C'
+              image={require('../../assets/sun.png')}
+              onClickAction={() => {}}
+            />
+            <ForcastDay
+              day='Sunday'
+              temperature='17C'
+              image={require('../../assets/sun.png')}
+              onClickAction={() => {}}
+            />
+            <ForcastDay
+              day='Sunday'
+              temperature='17C'
+              image={require('../../assets/sun.png')}
+              onClickAction={() => {}}
+            />
           </div>
         </div>
       </>

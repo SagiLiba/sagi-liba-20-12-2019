@@ -3,16 +3,21 @@ interface IProps {
   day: string;
   temperature: string;
   image: any;
+  onClickAction: any;
 }
 
 interface IState {}
 
 export default class ForcastDay extends React.Component<IProps, IState> {
+  constructor(props: any) {
+    super(props);
+  }
+
   render() {
-    const { day, temperature, image } = this.props;
+    const { day, temperature, image, onClickAction } = this.props;
 
     return (
-      <div className='forcast-day-container'>
+      <div className='forcast-day-container' onClick={() => onClickAction()}>
         <div className='forcast-day-content'>
           <p>{day}</p>
           <p>{temperature}</p>

@@ -1,5 +1,52 @@
 .favorites-container {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 20px;
+
+  .top {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    @media only screen and(max-width: 401px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .display-button {
+      background: rgb(10, 116, 16);
+      background: linear-gradient(0deg, rgba(10, 116, 16, 1) 4%, rgba(52, 181, 0, 1) 90%);
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      margin-right: 20px;
+      cursor: pointer;
+      @media only screen and(max-width: 401px) {
+        width: 70%;
+        margin: auto;
+        margin-bottom: 10px;
+      }
+    }
+
+    .remove-button {
+      background: rgb(255, 93, 29);
+      background: linear-gradient(0deg, rgba(255, 93, 29, 1) 29%, rgba(242, 0, 0, 1) 100%);
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      @media only screen and(max-width: 401px) {
+        width: 70%;
+        margin: auto;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
