@@ -3,15 +3,22 @@ import Autocomplete from '../autocomplete/autocomplete.component';
 import rootStores from '../../stores';
 import { observer } from 'mobx-react';
 import AddRemoveButton from '../addremovebutton/addremovebutton.component';
+
+interface IProps {
+  history?: any;
+}
+
+interface IState {}
+
 @observer
-export default class Navbar extends React.Component {
+export default class Navbar extends React.Component<IProps, IState> {
   render() {
     const searchIcon = rootStores.viewStore.showSearchBox
       ? require('../../assets/search-close-small.png')
       : require('../../assets/search-small.png');
     return (
       <>
-        <div style={{ position: 'relative' }}>
+        <div className='navbar-outer-container'>
           <div className='navbar-container'>
             <div className='navbar-buttons'>
               <img src={require('../../assets/star.png')} alt='Favorites' />
@@ -24,7 +31,7 @@ export default class Navbar extends React.Component {
             </div>
           </div>
           <Autocomplete />
-          <AddRemoveButton />
+          {rootStores.viewStore.showFavoritesButton && <AddRemoveButton />}
         </div>
       </>
     );

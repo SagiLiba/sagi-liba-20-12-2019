@@ -3,6 +3,7 @@ import { observable, action, observe } from 'mobx';
 export default class ViewStore {
   @observable loadingView: boolean = false;
   @observable showSearchBox: boolean = false;
+  @observable showFavoritesButton: boolean = true;
 
   @action
   init = () => {
