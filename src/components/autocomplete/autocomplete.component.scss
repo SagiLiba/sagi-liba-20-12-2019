@@ -4,6 +4,7 @@
   padding-top: 40px;
   opacity: 0;
   transition: opacity 0.6s ease-in;
+  position: relative;
   input {
     padding: 10px;
     border-radius: 10px;
@@ -19,6 +20,39 @@
     width: 70%;
     @media only screen and(min-width: $mobile-width-max) {
       width: 50%;
+    }
+  }
+  .autocomplete-suggestions {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    top: 70px;
+    background-color: white;
+    width: 70%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    /* position: relative; */
+    box-shadow: 0px 2px 14px 3px white;
+    transition: width 0.5s ease-in;
+    @media only screen and(min-width: $mobile-width-max) {
+      width: 50%;
+    }
+    .suggestion {
+      color: gray;
+      border-bottom: 1px;
+      border-left: 0px;
+      border-right: 0px;
+      border-top: 0px;
+      border-radius: 5px;
+      border-color: #c5d8df;
+      border-style: solid;
+      padding-left: 6px;
+      padding-bottom: 6px;
+      margin-bottom: 15px;
+    }
+    .suggestion:last-child {
+      border: 0px;
+      margin: 0px;
     }
   }
 }
