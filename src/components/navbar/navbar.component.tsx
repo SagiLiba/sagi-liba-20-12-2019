@@ -23,6 +23,17 @@ export default class Navbar extends React.Component<IProps, IState> {
     this.props.history.push('/');
   };
 
+  onClickSearch = () => {
+    const autocompleteSuggestions: any = document.getElementsByClassName('autocomplete-suggestions')[0];
+    rootStores.viewStore.toggleSearchBox();
+
+    if (!rootStores.viewStore.showSearchBox) {
+      rootStores.weatherStore.searchText = '';
+      rootStores.weatherStore.clearSuggestions();
+      autocompleteSuggestions.style.display = 'none';
+    }
+  };
+
   render() {
     const searchIcon = rootStores.viewStore.showSearchBox
       ? require('../../assets/search-close-small.png')
@@ -48,7 +59,7 @@ export default class Navbar extends React.Component<IProps, IState> {
               <img src={require('../../assets/logo.png')} alt='World Weather' />
             </div>
             <div className='navbar-search'>
-              <img src={searchIcon} alt='Search' onClick={() => rootStores.viewStore.toggleSearchBox()} />
+              <img src={searchIcon} alt='Search' onClick={this.onClickSearch} />
             </div>
           </div>
           <Autocomplete />
