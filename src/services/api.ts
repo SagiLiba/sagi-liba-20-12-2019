@@ -5,7 +5,7 @@ export default class API {
 
   constructor(baseUrl: string) {
     if (!baseUrl) {
-      throw new Error(`Erorr in creating Http service with baseUrl: ${baseUrl}`);
+      throw new Error(`Error no base url found`);
     }
     this.baseUrl = baseUrl;
   }
