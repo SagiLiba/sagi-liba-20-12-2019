@@ -1,0 +1,12 @@
+@import '../../css/variables';
+
+.add-remove-button {
+  cursor: 'pointer';
+  position: absolute;
+  top: 170px;
+  right: 0px;
+  @media only screen and(min-width: $mobile-width-max + 300) {
+    right: 24%;
+    top: 220px;
+  }
+}
