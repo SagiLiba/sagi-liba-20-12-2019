@@ -17,13 +17,20 @@ export default class Forcast extends React.Component {
 
   render() {
     return (
-      <div className='forcast-container'>
-        {this.forcastDay()}
-        {this.forcastDay()}
-        {this.forcastDay()}
-        {this.forcastDay()}
-        {this.forcastDay()}
-      </div>
+      <>
+        <div className='forcast-container'>
+          <div className='forcast-top'>
+            <div className='favorite-city'>Tel Aviv - 22C</div>
+          </div>
+          <div className='forcast-bottom'>
+            {this.forcastDay()}
+            {this.forcastDay()}
+            {this.forcastDay()}
+            {this.forcastDay()}
+            {this.forcastDay()}
+          </div>
+        </div>
+      </>
     );
   }
 }
