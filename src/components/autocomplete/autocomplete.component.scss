@@ -1,0 +1,28 @@
+.autocomplete-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+  input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 0px;
+    color: gray;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0px 2px 14px 3px white;
+    width: 0px;
+    transition: width 0.5s ease-in;
+  }
+  .autocomplete-width-transition {
+    width: 70%;
+    @media only screen and(min-width: $mobile-width-max) {
+      width: 50%;
+    }
+  }
+}
+
+.autocomplete-fadein-transition {
+  opacity: 1;
+}
