@@ -13,14 +13,17 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      //border: 1px solid black;
+
       img {
         cursor: pointer;
         width: 80px;
         height: 80px;
+      }
+
+      .favorites-button {
         transition: transform 1s;
       }
-      img:hover {
+      .favorites-button:hover {
         background-image: url('../../assets/star-shadow.png');
         transform: rotate(145deg);
         -ms-transform: rotate(145deg);
@@ -29,7 +32,6 @@
     }
 
     .navbar-logo {
-      //border: 1px solid black;
       flex-grow: 1;
       max-height: 200px;
       display: flex;
@@ -47,7 +49,6 @@
     }
 
     .navbar-search {
-      //border: 1px solid black;
       flex-grow: 1;
       height: 15vw;
       max-height: 200px;

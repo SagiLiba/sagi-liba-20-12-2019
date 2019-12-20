@@ -1,0 +1,33 @@
+.forcast-day-container {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 29%, rgba(255, 255, 255, 0) 100%);
+  padding: 25px;
+  border-radius: 20px;
+  width: 100px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  @media only screen and(max-width: 400px) {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+
+  .forcast-day-content p:last-child {
+    font-size: 2rem;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  .forcast-day-icon {
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+.forcast-day-container:hover {
+  background: rgb(255, 192, 29);
+  background: linear-gradient(180deg, rgba(255, 192, 29, 1) 29%, rgba(255, 255, 255, 0) 100%);
+  color: white;
+}

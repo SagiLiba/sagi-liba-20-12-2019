@@ -1,20 +1,7 @@
 import * as React from 'react';
+import ForcastDay from '../forcastday/forcastday.component';
 
 export default class Forcast extends React.Component {
-  forcastDay = () => {
-    return (
-      <div className='forcast-day-container'>
-        <div className='forcast-day-content'>
-          <p>Sunday</p>
-          <p>17C</p>
-        </div>
-        <div className='forcast-day-icon'>
-          <img src={require('../../assets/sun.png')} alt='Sunny' />
-        </div>
-      </div>
-    );
-  };
-
   render() {
     return (
       <>
@@ -23,11 +10,11 @@ export default class Forcast extends React.Component {
             <div className='favorite-city'>Tel Aviv - 22C</div>
           </div>
           <div className='forcast-bottom'>
-            {this.forcastDay()}
-            {this.forcastDay()}
-            {this.forcastDay()}
-            {this.forcastDay()}
-            {this.forcastDay()}
+            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
+            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
+            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
+            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
+            <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} />
           </div>
         </div>
       </>
