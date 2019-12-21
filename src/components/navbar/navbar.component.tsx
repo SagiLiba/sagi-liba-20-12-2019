@@ -11,38 +11,40 @@ interface IProps {
 
 interface IState {}
 
+const { weatherStore, viewStore } = rootStores;
 @observer
 export default class Navbar extends React.Component<IProps, IState> {
   onClickFavorites = () => {
-    rootStores.viewStore.toggleActionButton();
+    viewStore.toggleActionButton();
     this.props.history.push('/favorites');
+    this.closeAutocomplete();
   };
 
   onClickHome = () => {
-    rootStores.viewStore.toggleActionButton();
+    viewStore.toggleActionButton();
+    this.closeAutocomplete();
     this.props.history.push('/');
   };
 
   onClickSearch = () => {
-    const autocompleteSuggestions: any = document.getElementsByClassName('autocomplete-suggestions')[0];
-    rootStores.viewStore.toggleSearchBox();
+    viewStore.toggleSearchBox();
+    this.closeAutocomplete();
+  };
 
-    if (!rootStores.viewStore.showSearchBox) {
-      rootStores.weatherStore.searchText = '';
-      rootStores.weatherStore.clearSuggestions();
-      autocompleteSuggestions.style.display = 'none';
-    }
+  closeAutocomplete = () => {
+    const autocompleteSuggestions: any = document.getElementsByClassName('autocomplete-suggestions')[0];
+    weatherStore.searchText = '';
+    weatherStore.clearSuggestions();
+    autocompleteSuggestions.style.display = 'none';
   };
 
   render() {
-    const searchIcon = rootStores.viewStore.showSearchBox
+    const searchIcon = viewStore.showSearchBox
       ? require('../../assets/search-close-small.png')
       : require('../../assets/search-small.png');
-    const actionButton = rootStores.viewStore.showHomeButton
-      ? require('../../assets/home.png')
-      : require('../../assets/star.png');
+    const actionButton = viewStore.showHomeButton ? require('../../assets/home.png') : require('../../assets/star.png');
 
-    const onClickActionButton = rootStores.viewStore.showHomeButton ? this.onClickHome : this.onClickFavorites;
+    const onClickActionButton = viewStore.showHomeButton ? this.onClickHome : this.onClickFavorites;
 
     return (
       <>
@@ -51,7 +53,7 @@ export default class Navbar extends React.Component<IProps, IState> {
             <div className='navbar-buttons'>
               <img
                 src={actionButton}
-                className={!rootStores.viewStore.showHomeButton ? 'favorites-button' : ''}
+                className={!viewStore.showHomeButton ? 'favorites-button' : ''}
                 onClick={onClickActionButton}
               />
             </div>
@@ -63,7 +65,7 @@ export default class Navbar extends React.Component<IProps, IState> {
             </div>
           </div>
           <Autocomplete />
-          {rootStores.viewStore.showFavoritesButton && <AddRemoveButton />}
+          {viewStore.showFavoritesButton && <AddRemoveButton />}
         </div>
       </>
     );

@@ -10,11 +10,11 @@ export default class Favorites extends React.Component {
           <div className='remove-button'>Remove Favorite</div>
         </div>
         <div className='bottom'>
+          {/* <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
           <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
           <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
           <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
-          <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
-          <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} />
+          <ForcastDay day='Sunday' temperature='17C' image={require('../../assets/sun.png')} onClickAction={() => {}} /> */}
         </div>
       </div>
     );

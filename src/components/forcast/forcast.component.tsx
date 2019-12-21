@@ -1,19 +1,38 @@
 import * as React from 'react';
 import ForcastDay from '../forcastday/forcastday.component';
 import rootStores from '../../stores';
-import DailyForcast from '../../dto/dailyforcast.dto';
+import { observer } from 'mobx-react';
 
+const { weatherStore, viewStore } = rootStores;
+@observer
 export default class Forcast extends React.Component {
   componentDidMount() {
-    rootStores.weatherStore
-      .getFiveDayForcast(215854)
-      .then((res: DailyForcast[]) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    weatherStore.getFiveDayForcast(215854);
   }
+
+  getDay = (dateString: string) => {
+    const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return days[new Date(dateString).getDay()];
+  };
+  changeIcon = (iconNumber: number) => {
+    viewStore.setWeatherIconNumber(iconNumber);
+  };
+  renderForcastDays = () => {
+    return (
+      weatherStore.fiveDayForcast &&
+      weatherStore.fiveDayForcast.map((day, index) => {
+        return (
+          <ForcastDay
+            key={index}
+            day={this.getDay(day.Date)}
+            temperature={`${day.Temperature.Maximum.Value}C`}
+            image={require(`../../assets/weather-icons/${day.Day.Icon}.png`)}
+            onClickAction={() => this.changeIcon(day.Day.Icon)}
+          />
+        );
+      })
+    );
+  };
 
   render() {
     return (
@@ -22,38 +41,7 @@ export default class Forcast extends React.Component {
           <div className='forcast-top'>
             <div className='favorite-city'>Tel Aviv - 22C</div>
           </div>
-          <div className='forcast-bottom'>
-            <ForcastDay
-              day='Sunday'
-              temperature='17C'
-              image={require('../../assets/weather-icons/1.png')}
-              onClickAction={() => {}}
-            />
-            <ForcastDay
-              day='Sunday'
-              temperature='17C'
-              image={require('../../assets/weather-icons/2.png')}
-              onClickAction={() => {}}
-            />
-            <ForcastDay
-              day='Sunday'
-              temperature='17C'
-              image={require('../../assets/weather-icons/3.png')}
-              onClickAction={() => {}}
-            />
-            <ForcastDay
-              day='Sunday'
-              temperature='17C'
-              image={require('../../assets/weather-icons/4.png')}
-              onClickAction={() => {}}
-            />
-            <ForcastDay
-              day='Sunday'
-              temperature='17C'
-              image={require('../../assets/weather-icons/5.png')}
-              onClickAction={() => {}}
-            />
-          </div>
+          <div className='forcast-bottom'>{this.renderForcastDays()}</div>
         </div>
       </>
     );

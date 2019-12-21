@@ -1,0 +1,14 @@
+.weather-image-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .top {
+    h2 {
+      color: white;
+    }
+  }
+  .bottom {
+    display: flex;
+    justify-content: center;
+  }
+}
