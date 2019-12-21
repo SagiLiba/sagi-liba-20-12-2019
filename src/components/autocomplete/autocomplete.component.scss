@@ -55,8 +55,15 @@
       border-style: solid;
       padding-left: 6px;
       padding-bottom: 6px;
-      margin-bottom: 15px;
+      padding-top: 6px;
+      cursor: pointer;
     }
+
+    .suggestion:hover {
+      background-color: #eaf9ff;
+      font-weight: bold;
+    }
+
     .suggestion:last-child {
       border: 0px;
       margin: 0px;

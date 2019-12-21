@@ -56,7 +56,7 @@
         }
       },
       "Day": {
-        "Icon": 1,
+        "Icon": 8,
         "IconPhrase": "Sunny",
         "HasPrecipitation": false
       },
@@ -85,7 +85,7 @@
         }
       },
       "Day": {
-        "Icon": 1,
+        "Icon": 20,
         "IconPhrase": "Sunny",
         "HasPrecipitation": false
       },
@@ -114,7 +114,7 @@
         }
       },
       "Day": {
-        "Icon": 1,
+        "Icon": 33,
         "IconPhrase": "Sunny",
         "HasPrecipitation": false
       },

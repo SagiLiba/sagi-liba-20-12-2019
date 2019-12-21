@@ -1,11 +1,14 @@
 import { observable, action, IObservableArray } from 'mobx';
 import WeatherService from '../services/weather.service';
 import Suggestion from '../dto/suggestion.dto';
+import DailyForcast from '../dto/dailyforcast.dto';
 
 class WeatherStore {
   @observable locationID: number;
   @observable suggestions: IObservableArray<Suggestion> = observable([]);
+  @observable fiveDayForcast: IObservableArray<DailyForcast> = observable([]);
   @observable searchText: string = '';
+  @observable selectedSuggestion: Suggestion;
 
   @action
   getAutoComplete(searchString: string) {
@@ -22,18 +25,31 @@ class WeatherStore {
 
   @action
   getFiveDayForcast(locationID: number) {
-    return WeatherService.fiveDayForcast(locationID);
+    WeatherService.fiveDayForcast(locationID).then((results: any) => {
+      this.clearFiveDayForcast();
+      this.fiveDayForcast = results;
+    });
   }
 
   @action
   setSearchText(text: string) {
     this.searchText = text;
-    console.log(this.searchText);
+  }
+
+  @action
+  setSelectedSuggestion(suggestion: Suggestion) {
+    this.selectedSuggestion = suggestion;
+    this.getFiveDayForcast(suggestion.Key);
   }
 
   @action
   clearSuggestions() {
     this.suggestions.clear();
+  }
+
+  @action
+  clearFiveDayForcast() {
+    this.fiveDayForcast.clear();
   }
 }
 
