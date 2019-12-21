@@ -14,20 +14,26 @@ class WeatherService extends API {
 
   async autocomplete(searchString: string) {
     try {
-      let result;
-
-      if (this.useMockData) {
-        result = await this.get('http://localhost:3000/mockdata/autocomplete.json');
-      } else {
-        await this.get(`${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`);
-      }
-
-      if (result && result.status) {
-        let response: Suggestion[] = result.data;
-        return response;
-      } else {
-        throw new Error('Fetching autocomplete data failed');
-      }
+      let result: any;
+      console.log('Autocomplete');
+      // if (this.useMockData) {
+      //   result = await this.get('http://localhost:3000/mockdata/autocomplete.json');
+      // } else {
+      //   await this.get(`${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`);
+      // }
+      return (
+        fetch(`${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`)
+          // We get the API response and receive data in JSON format...
+          .then((response) => response.json())
+          .then((data) => {
+            let response: Suggestion[] = data;
+            console.log('Logging Autocomplete: ', data, response);
+            return;
+          })
+          .catch((error) => {
+            console.log('ERROR AC:', error);
+          })
+      );
     } catch (error) {
       throw error;
     }
@@ -35,20 +41,16 @@ class WeatherService extends API {
 
   async currentConditions(locationID: number) {
     try {
-      let result;
+      let result: any;
 
       if (this.useMockData) {
         result = await this.get('http://localhost:3000/mockdata/currentconditions.json');
       } else {
         result = await this.get(`${this.baseUrl}/currentconditions/v1/${locationID}`);
       }
-
-      if (result && result.status) {
-        let response: CurrentConditions = result.data[0];
-        return response;
-      } else {
-        throw new Error('Fetching Current Conditions data failed');
-      }
+      console.log(result);
+      let response: any = result[0];
+      return response;
     } catch (error) {
       throw error;
     }

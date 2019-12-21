@@ -33,7 +33,8 @@ class WeatherStore {
   async getData(name: string) {
     await this.getAutoComplete(name);
     this.cityName = name;
-    this.selectedSuggestion = this.suggestions[0];
+    console.log('suggestions', this.suggestions && this.suggestions[0]);
+    this.selectedSuggestion = this.suggestions && this.suggestions[0];
     this.mainKey = this.selectedSuggestion.Key;
 
     await this.getCurrentConditions(this.mainKey);
