@@ -5,7 +5,7 @@
   max-width: 900px;
   margin: auto;
   margin-top: 20px;
-
+  transition: transform 0.1s ease-in;
   .top {
     display: flex;
     justify-content: center;
@@ -42,9 +42,12 @@
         margin: auto;
       }
     }
-    transition: transform 0.1s ease-in;
   }
 
+  .no-favorites {
+    font-size: 48px;
+    color: white;
+  }
   .favorite-buttons-transition {
     transform: scale(1.1);
   }

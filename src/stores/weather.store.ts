@@ -18,8 +18,21 @@ class WeatherStore {
   @observable mainKey: number = config.defaultLocationKey;
   @action
   async init() {
-    await this.getAutoComplete('Tel Aviv');
-    this.cityName = 'Tel Aviv';
+    let favoriteCityName: any;
+    // If there is a favorite city fetch its data
+    if (StorageUtils.isHomepageCityExists()) {
+      favoriteCityName = Object.values(StorageUtils.getHomepageCity());
+      this.cityName = favoriteCityName[0];
+      this.getData(this.cityName);
+    } else {
+      this.getData('Tel Aviv');
+    }
+  }
+
+  @action
+  async getData(name: string) {
+    await this.getAutoComplete(name);
+    this.cityName = name;
     this.selectedSuggestion = this.suggestions[0];
     this.mainKey = this.selectedSuggestion.Key;
 
@@ -91,9 +104,14 @@ class WeatherStore {
     const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return days[new Date(dateString).getDay()];
   }
+
+  @computed
+  get favoritesCurrentConditionLength() {
+    return this.favoritesCurrentCondition ? this.favoritesCurrentCondition.length : 0;
+  }
   @computed
   get favoriteCityText() {
-    if (StorageUtils.isHomepageCity()) {
+    if (StorageUtils.isHomepageCityExists()) {
       const favoriteCityData: any = Object.values(StorageUtils.getHomepageCity());
       return `${favoriteCityData[0]} - ${favoriteCityData[1]}`;
     } else {

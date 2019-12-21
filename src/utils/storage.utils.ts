@@ -73,8 +73,17 @@ export default class StorageUtils {
     return data && JSON.parse(data);
   }
 
-  public static isHomepageCity() {
+  public static isHomepageCityExists() {
     const data = localStorage.getItem('homepageCity');
     return data ? true : false;
+  }
+
+  public static isThisCurrentHomepageCity(key: number) {
+    const data = this.getHomepageCity();
+    return data && data.hasOwnProperty(key.toString()) ? true : false;
+  }
+
+  public static removeHomepageCity() {
+    localStorage.removeItem('homepageCity');
   }
 }

@@ -14,6 +14,7 @@ export default class Favorites extends React.Component {
   animateButtons = (forcastDay: any) => {
     viewStore.favoritesPanelButton = true;
     viewStore.selectedFavoritesPanelKey = forcastDay.Key;
+    viewStore.selectedFavoritesCityName = forcastDay.CityName;
     viewStore.selectedFavoritesTemperature =
       forcastDay.Temperature.Imperial.Value + forcastDay.Temperature.Imperial.Unit;
     viewStore.animateFavoritesButtons = true;
@@ -44,12 +45,17 @@ export default class Favorites extends React.Component {
       viewStore.favoritesPanelButton = false;
       StorageUtils.removeFromFavorites(viewStore.selectedFavoritesPanelKey);
       document.getElementsByClassName(viewStore.selectedFavoritesPanelKey.toString())[0].remove();
+      if (StorageUtils.isThisCurrentHomepageCity(viewStore.selectedFavoritesPanelKey)) {
+        StorageUtils.removeHomepageCity();
+      }
     }
   };
 
   setHomepage = () => {
     if (viewStore.selectedFavoritesPanelKey) {
       StorageUtils.homepageCity(viewStore.selectedFavoritesPanelKey, viewStore.selectedFavoritesTemperature);
+      weatherStore.cityName = viewStore.selectedFavoritesCityName;
+      weatherStore.getFiveDayForcast(viewStore.selectedFavoritesPanelKey);
     }
   };
 
@@ -68,7 +74,13 @@ export default class Favorites extends React.Component {
             </>
           )}
         </div>
-        <div className='bottom'>{this.renderFavorites()}</div>
+        <div className='bottom'>
+          {weatherStore.favoritesCurrentConditionLength > 0 ? (
+            this.renderFavorites()
+          ) : (
+            <div className='no-favorites'>No Favorites</div>
+          )}
+        </div>
       </div>
     );
   }

@@ -13,6 +13,7 @@ export default class ViewStore {
   @observable anyFavorites: boolean = false;
   @observable selectedFavoritesPanelKey: number | undefined;
   @observable selectedFavoritesTemperature: string;
+  @observable selectedFavoritesCityName: string;
 
   @action
   init = (history: any) => {

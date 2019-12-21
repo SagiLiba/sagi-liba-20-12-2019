@@ -64,7 +64,7 @@ export default class Navbar extends React.Component<IProps, IState> {
               <img src={searchIcon} alt='Search' onClick={this.onClickSearch} />
             </div>
           </div>
-          <Autocomplete />
+          <Autocomplete history={this.props.history} />
           {viewStore.showFavoritesButton && <AddRemoveButton />}
         </div>
       </>

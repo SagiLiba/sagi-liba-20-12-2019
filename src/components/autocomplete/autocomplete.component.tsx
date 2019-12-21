@@ -4,9 +4,13 @@ import rootStores from '../../stores';
 import Suggestion from '../../dto/suggestion.dto';
 import StorageUtils from '../../utils/storage.utils';
 
+interface IProps {
+  history: any;
+}
+
 const { weatherStore, viewStore } = rootStores;
 @observer
-export default class Autocomplete extends React.Component {
+export default class Autocomplete extends React.Component<IProps> {
   handleChange = (e: any) => {
     const searchText = e.target.value;
     if (searchText && searchText.length > 0) {
@@ -27,6 +31,12 @@ export default class Autocomplete extends React.Component {
       ? (viewStore.addOrRemoveFavorites = true)
       : (viewStore.addOrRemoveFavorites = false);
     this.showHideSuggestions(false);
+
+    if (this.props.history.location.pathname.indexOf('/favorites') > -1) {
+      viewStore.showHomeButton = false;
+      viewStore.showFavoritesButton = true;
+      this.props.history.push('/');
+    }
   };
 
   showHideSuggestions = (show: boolean) => {
