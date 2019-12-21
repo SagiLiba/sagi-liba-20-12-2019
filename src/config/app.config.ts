@@ -8,7 +8,7 @@ const config = {
     currentCondition: 'http://localhost:3000/mockdata/currentconditions.json',
     fiveDayForcast: 'http://localhost:3000/mockdata/fivedayforcast.json'
   },
-  useMock: true
+  useMock: false
 };
 
 export default config;
