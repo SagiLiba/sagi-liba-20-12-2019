@@ -2,18 +2,11 @@ import * as React from 'react';
 import ForcastDay from '../forcastday/forcastday.component';
 import rootStores from '../../stores';
 import { observer } from 'mobx-react';
+import StorageUtils from '../../utils/storage.utils';
 
 const { weatherStore, viewStore } = rootStores;
 @observer
 export default class Forcast extends React.Component {
-  componentDidMount() {
-    weatherStore.getFiveDayForcast(215854);
-  }
-
-  getDay = (dateString: string) => {
-    const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return days[new Date(dateString).getDay()];
-  };
   changeIcon = (iconNumber: number) => {
     viewStore.setWeatherIconNumber(iconNumber);
   };
@@ -24,7 +17,7 @@ export default class Forcast extends React.Component {
         return (
           <ForcastDay
             key={index}
-            day={this.getDay(day.Date)}
+            day={weatherStore.getDay(day.Date)}
             temperature={`${day.Temperature.Maximum.Value}C`}
             image={require(`../../assets/weather-icons/${day.Day.Icon}.png`)}
             onClickAction={() => this.changeIcon(day.Day.Icon)}
@@ -39,7 +32,7 @@ export default class Forcast extends React.Component {
       <>
         <div className='forcast-container'>
           <div className='forcast-top'>
-            <div className='favorite-city'>Tel Aviv - 22C</div>
+            <div className='favorite-city'>{weatherStore.favoriteCityText}</div>
           </div>
           <div className='forcast-bottom'>{this.renderForcastDays()}</div>
         </div>

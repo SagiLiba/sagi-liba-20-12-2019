@@ -2,6 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import rootStores from '../../stores';
 import Suggestion from '../../dto/suggestion.dto';
+import StorageUtils from '../../utils/storage.utils';
 
 const { weatherStore, viewStore } = rootStores;
 @observer
@@ -21,6 +22,10 @@ export default class Autocomplete extends React.Component {
   onClickSuggestion = (suggestion: Suggestion) => {
     weatherStore.setSearchText(suggestion.LocalizedName);
     weatherStore.setSelectedSuggestion(suggestion);
+
+    StorageUtils.isInFavorites(suggestion.Key)
+      ? (viewStore.addOrRemoveFavorites = true)
+      : (viewStore.addOrRemoveFavorites = false);
     this.showHideSuggestions(false);
   };
 
@@ -56,6 +61,7 @@ export default class Autocomplete extends React.Component {
         <input
           type='text'
           value={weatherStore.searchText}
+          placeholder={'Enter city name'}
           className={autocompleteWidthTransition}
           onChange={this.handleChange}
         />

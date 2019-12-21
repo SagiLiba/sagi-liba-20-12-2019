@@ -44,7 +44,6 @@ class WeatherService extends API {
       }
 
       if (result && result.status) {
-        console.log(result);
         let response: CurrentConditions = result.data[0];
         return response;
       } else {
@@ -66,7 +65,6 @@ class WeatherService extends API {
       }
 
       if (result && result.status) {
-        console.log(result);
         let response: DailyForcast[] = result.data.DailyForecasts;
         return response;
       } else {

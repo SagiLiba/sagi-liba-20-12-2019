@@ -13,11 +13,9 @@ const { weatherStore, viewStore } = rootStores;
 @observer
 export default class Homepage extends React.Component<IProps, IState> {
   render() {
-    const cityName = weatherStore.selectedSuggestion && weatherStore.selectedSuggestion.LocalizedName;
-
     return (
       <>
-        <WeatherImage iconNumber={viewStore.weatherIconNumber} cityName={cityName} />
+        <WeatherImage iconNumber={viewStore.weatherIconNumber} cityName={weatherStore.cityName} />
         <Forcast />
       </>
     );

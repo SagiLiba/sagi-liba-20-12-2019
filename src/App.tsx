@@ -9,10 +9,13 @@ import Homepage from './components/homepage/homepage.component';
 import Favorites from './components/favorites/favorites.component';
 
 const history: History | any = createBrowserHistory();
+const { weatherStore, viewStore } = rootStores;
 @observer
 export default class App extends React.Component {
   componentDidMount() {
-    rootStores.viewStore.init(history);
+    weatherStore.init();
+    viewStore.init(history);
+    weatherStore.currentConditions && viewStore.setWeatherIconNumber(weatherStore.currentConditions.WeatherIcon);
   }
 
   render() {

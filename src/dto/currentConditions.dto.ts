@@ -1,4 +1,6 @@
 export default class CurrentConditions {
+  CityName?: string;
+  Key?: number;
   LocalObservationDateTime: string;
   EpochTime: number;
   WeatherText: string;
