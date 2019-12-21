@@ -7,6 +7,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/navbar/navbar.component';
 import Homepage from './components/homepage/homepage.component';
 import Favorites from './components/favorites/favorites.component';
+import StorageUtils from './utils/storage.utils';
 
 const history: History | any = createBrowserHistory();
 const { weatherStore, viewStore } = rootStores;

@@ -53,4 +53,21 @@ export default class ViewStore {
   setWeatherIconNumber(iconNumber: number) {
     this.weatherIconNumber = iconNumber;
   }
+
+  @action
+  getImageObject(mainKey: number, mobileMaxWidth: number, imagesObject: any) {
+    const isInFavorites: boolean = StorageUtils.isInFavorites(mainKey);
+
+    const { removeDesktopImage, addDesktopImage, removeMobileImage, addMobileImage } = imagesObject;
+    const desktopImg = isInFavorites ? removeDesktopImage : addDesktopImage;
+    const mobileImg = isInFavorites ? removeMobileImage : addMobileImage;
+    const screenWidth = window.innerWidth;
+    const mobileDesktopImage = screenWidth > mobileMaxWidth ? desktopImg : mobileImg;
+    return {
+      isInFavorites,
+      desktopImg,
+      mobileImg,
+      mobileDesktopImage
+    };
+  }
 }

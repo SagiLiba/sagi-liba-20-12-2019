@@ -12,10 +12,13 @@ interface IState {
 const { weatherStore, viewStore } = rootStores;
 @observer
 export default class AddRemoveButton extends React.Component<IProps, IState> {
-  addMobileImage: any = require('../../assets/add-favorites-mobile.png');
-  addDesktopImage: any = require('../../assets/add-favorites-desktop.png');
-  removeMobileImage: any = require('../../assets/remove-favorites-mobile.png');
-  removeDesktopImage: any = require('../../assets/remove-favorites-desktop.png');
+  imagesObject = {
+    addMobileImage: require('../../assets/add-favorites-mobile.png'),
+    addDesktopImage: require('../../assets/add-favorites-desktop.png'),
+    removeMobileImage: require('../../assets/remove-favorites-mobile.png'),
+    removeDesktopImage: require('../../assets/remove-favorites-desktop.png')
+  };
+
   mobileMaxWidth: number = 1000;
 
   constructor(props: any) {
@@ -68,17 +71,7 @@ export default class AddRemoveButton extends React.Component<IProps, IState> {
   };
 
   getImageObject = () => {
-    const isInFavorites: boolean = StorageUtils.isInFavorites(weatherStore.mainKey);
-    const desktopImg = isInFavorites ? this.removeDesktopImage : this.addDesktopImage;
-    const mobileImg = isInFavorites ? this.removeMobileImage : this.addMobileImage;
-    const screenWidth = window.innerWidth;
-    const mobileDesktopImage = screenWidth > this.mobileMaxWidth ? desktopImg : mobileImg;
-    return {
-      isInFavorites,
-      desktopImg,
-      mobileImg,
-      mobileDesktopImage
-    };
+    return viewStore.getImageObject(weatherStore.mainKey, this.mobileMaxWidth, this.imagesObject);
   };
 
   render() {

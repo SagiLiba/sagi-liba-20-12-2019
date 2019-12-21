@@ -28,11 +28,14 @@ export default class Forcast extends React.Component {
   };
 
   render() {
+    {
+      console.log(process.env.API_KEY);
+    }
     return (
       <>
         <div className='forcast-container'>
           <div className='forcast-top'>
-            <div className='favorite-city'>{weatherStore.favoriteCityText}</div>
+            <div className='favorite-city'>{weatherStore.favoriteCityText ? weatherStore.favoriteCityText : ''}</div>
           </div>
           <div className='forcast-bottom'>{this.renderForcastDays()}</div>
         </div>
