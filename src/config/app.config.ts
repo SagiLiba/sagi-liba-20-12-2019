@@ -11,7 +11,7 @@ const config = {
     localCurrentCondition: 'http://localhost:3000/mockdata/currentconditions.json',
     localFiveDayForcast: 'http://localhost:3000/mockdata/fivedayforcast.json'
   },
-  useMock: true
+  useMock: false
 };
 
 export default config;
