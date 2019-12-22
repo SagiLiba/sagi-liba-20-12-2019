@@ -1,9 +1,7 @@
 body {
-  background-image: url('./assets/cold-background.gif');
-  background-color: #c9d8de;
+  background: linear-gradient(0deg, rgba(178, 198, 210, 1) 0%, rgba(218, 230, 234, 1) 39%);
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+  background-color: #b2c6d2;
 }
 
 .app-container {
