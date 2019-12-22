@@ -8,7 +8,7 @@ const config = {
     localCurrentCondition: 'http://herolo-sagi-mock.herokuapp.com/mockdata/currentconditions.json',
     localFiveDayForcast: 'http://herolo-sagi-mock.herokuapp.com/mockdata/fivedayforcast.json'
   },
-  useMock: true
+  useMock: false
 };
 
 export default config;
