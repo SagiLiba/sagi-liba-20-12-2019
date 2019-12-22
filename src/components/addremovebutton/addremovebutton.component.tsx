@@ -69,7 +69,6 @@ export default class AddRemoveButton extends React.Component<IProps, IState> {
   };
 
   render() {
-    console.log('addremove render');
     return (
       <div className={'add-remove-button'}>
         {viewStore.addOrRemoveFavorites ? (

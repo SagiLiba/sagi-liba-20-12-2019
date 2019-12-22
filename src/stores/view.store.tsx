@@ -63,13 +63,7 @@ export default class ViewStore {
     const mobileImg = isInFavorites ? removeMobileImage : addMobileImage;
     const screenWidth = window.innerWidth;
     const mobileDesktopImage = screenWidth > mobileMaxWidth ? desktopImg : mobileImg;
-    console.log(isInFavorites ? 'remove' : 'add');
-    console.log(
-      'is in favorites? ',
-      isInFavorites,
-      mainKey,
-      screenWidth > mobileMaxWidth ? 'desktopImage' : 'mobileImage'
-    );
+
     return {
       isInFavorites,
       desktopImg,
