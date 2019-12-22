@@ -4,9 +4,9 @@ const config = {
   baseUrl: 'http://dataservice.accuweather.com',
   defaultLocationKey: 215854,
   mockData: {
-    localAutocomplete: 'http://herolo-sagi-mock.herokuapp.com/mockdata/autocomplete.json',
-    localCurrentCondition: 'http://herolo-sagi-mock.herokuapp.com/mockdata/currentconditions.json',
-    localFiveDayForcast: 'http://herolo-sagi-mock.herokuapp.com/mockdata/fivedayforcast.json'
+    localAutocomplete: 'http://sagi-herolo-mock.herokuapp.com/mockdata/autocomplete.json',
+    localCurrentCondition: 'http://sagi-herolo-mock.herokuapp.com/mockdata/currentconditions.json',
+    localFiveDayForcast: 'http://sagi-herolo-mock.herokuapp.com/mockdata/fivedayforcast.json'
   },
   useMock: false
 };
