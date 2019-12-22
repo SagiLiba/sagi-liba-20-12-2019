@@ -26,7 +26,6 @@ export default class Autocomplete extends React.Component<IProps> {
   onClickSuggestion = (suggestion: Suggestion) => {
     weatherStore.setSearchText(suggestion.LocalizedName);
     weatherStore.setSelectedSuggestion(suggestion);
-
     StorageUtils.isInFavorites(suggestion.Key)
       ? (viewStore.addOrRemoveFavorites = true)
       : (viewStore.addOrRemoveFavorites = false);

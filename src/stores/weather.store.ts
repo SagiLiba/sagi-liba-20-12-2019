@@ -5,6 +5,7 @@ import DailyForcast from '../dto/dailyforcast.dto';
 import CurrentConditions from '../dto/currentConditions.dto';
 import config from '../config/app.config';
 import StorageUtils from '../utils/storage.utils';
+import ViewStore from './view.store';
 
 class WeatherStore {
   @observable locationID: number;
@@ -16,8 +17,13 @@ class WeatherStore {
   @observable currentConditions: CurrentConditions;
   @observable cityName: string = '';
   @observable mainKey: number = config.defaultLocationKey;
+  viewStore: ViewStore;
+  constructor(viewStore: ViewStore) {
+    this.viewStore = viewStore;
+  }
+
   @action
-  async init() {
+  init() {
     let favoriteCityName: any;
     // If there is a favorite city fetch its data
     if (StorageUtils.isHomepageCityExists()) {
@@ -31,29 +37,43 @@ class WeatherStore {
 
   @action
   async getData(name: string) {
-    await this.getAutoComplete(name);
-    this.cityName = name;
-    console.log('suggestions', this.suggestions && this.suggestions[0]);
-    this.selectedSuggestion = this.suggestions && this.suggestions[0];
-    this.mainKey = this.selectedSuggestion.Key;
+    try {
+      await this.getAutoComplete(name);
+      this.cityName = name;
+      this.selectedSuggestion = this.suggestions && this.suggestions.filter((s) => s.LocalizedName == name)[0];
+      if (!this.selectedSuggestion) {
+        this.selectedSuggestion = this.suggestions && this.suggestions[0];
+      }
+      this.mainKey = this.selectedSuggestion.Key;
 
-    await this.getCurrentConditions(this.mainKey);
-    await this.getFiveDayForcast(this.mainKey);
+      await this.getCurrentConditions(this.mainKey);
+      await this.getFiveDayForcast(this.mainKey);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @action
   async getAutoComplete(searchString: string) {
-    await WeatherService.autocomplete(searchString).then(async (results: any) => {
-      this.clearSuggestions();
-      this.suggestions = results;
-    });
+    await WeatherService.autocomplete(searchString)
+      .then((results: any) => {
+        this.clearSuggestions();
+        this.suggestions = results;
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   @action
   getCurrentConditions(locationID: number) {
-    WeatherService.currentConditions(locationID).then((result: any) => {
-      this.currentConditions = result;
-    });
+    WeatherService.currentConditions(locationID)
+      .then((result: any) => {
+        this.currentConditions = result;
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   @action
@@ -61,20 +81,29 @@ class WeatherStore {
     this.favoritesCurrentCondition.clear();
 
     Object.entries(favoritesObject).forEach(([key, value]) => {
-      WeatherService.currentConditions(parseInt(key)).then((result: any) => {
-        result.Key = parseInt(key);
-        result.CityName = value as string;
-        this.favoritesCurrentCondition.push(result);
-      });
+      WeatherService.currentConditions(parseInt(key))
+        .then((result: any) => {
+          result.Key = parseInt(key);
+          result.CityName = value as string;
+          this.favoritesCurrentCondition.push(result);
+        })
+        .catch((error) => {
+          throw error;
+        });
     });
   }
 
   @action
-  getFiveDayForcast(locationID: number) {
-    WeatherService.fiveDayForcast(locationID).then((results: any) => {
-      this.clearFiveDayForcast();
-      this.fiveDayForcast = results;
-    });
+  getFiveDayForcast(locationID: number, setIcon?: boolean) {
+    WeatherService.fiveDayForcast(locationID)
+      .then((results: any) => {
+        this.clearFiveDayForcast();
+        this.fiveDayForcast = results;
+        this.viewStore.weatherIconNumber = this.fiveDayForcast[0].Day.Icon;
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   @action
@@ -83,16 +112,16 @@ class WeatherStore {
   }
 
   @action
-  setSelectedSuggestion(suggestion: Suggestion) {
+  setSelectedSuggestion(suggestion: Suggestion, setIcon?: boolean) {
     this.selectedSuggestion = suggestion;
     this.cityName = suggestion.LocalizedName;
     this.mainKey = suggestion.Key;
-    this.getFiveDayForcast(this.mainKey);
+    this.getFiveDayForcast(this.mainKey, setIcon);
   }
 
   @action
   clearSuggestions() {
-    this.suggestions.clear();
+    this.suggestions && this.suggestions.length > 0 && this.suggestions.clear();
   }
 
   @action
@@ -116,9 +145,10 @@ class WeatherStore {
       const favoriteCityData: any = Object.values(StorageUtils.getHomepageCity());
       return `${favoriteCityData[0]} - ${favoriteCityData[1]}`;
     } else {
-      const Temperature =
+      let Temperature =
         this.currentConditions &&
         this.currentConditions.Temperature.Imperial.Value + this.currentConditions.Temperature.Imperial.Unit;
+      Temperature = Temperature ? Temperature : '';
       return this.cityName + ' ' + Temperature;
     }
   }

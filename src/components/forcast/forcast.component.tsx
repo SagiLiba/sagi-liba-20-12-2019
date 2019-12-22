@@ -28,9 +28,6 @@ export default class Forcast extends React.Component {
   };
 
   render() {
-    {
-      console.log(process.env.API_KEY);
-    }
     return (
       <>
         <div className='forcast-container'>

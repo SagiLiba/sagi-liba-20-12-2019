@@ -14,26 +14,22 @@ class WeatherService extends API {
 
   async autocomplete(searchString: string) {
     try {
-      let result: any;
-      console.log('Autocomplete');
-      // if (this.useMockData) {
-      //   result = await this.get('http://localhost:3000/mockdata/autocomplete.json');
-      // } else {
-      //   await this.get(`${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`);
-      // }
-      return (
-        fetch(`${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`)
-          // We get the API response and receive data in JSON format...
-          .then((response) => response.json())
-          .then((data) => {
-            let response: Suggestion[] = data;
-            console.log('Logging Autocomplete: ', data, response);
-            return;
-          })
-          .catch((error) => {
-            console.log('ERROR AC:', error);
-          })
-      );
+      let url = `${this.baseUrl}/locations/v1/cities/autocomplete?apikey=${config.apiKey}&q=${searchString}`;
+
+      if (this.useMockData) {
+        url = config.mockData.localAutocomplete;
+      }
+
+      return this.get(url)
+        .then((response) => response.json())
+        .then((data) => {
+          let response: Suggestion[] = data;
+          return response;
+        })
+        .catch((error) => {
+          console.log('ERROR Autocomplete:', error);
+          throw error;
+        });
     } catch (error) {
       throw error;
     }
@@ -41,16 +37,22 @@ class WeatherService extends API {
 
   async currentConditions(locationID: number) {
     try {
-      let result: any;
+      let url = `${this.baseUrl}/currentconditions/v1/${locationID}?apikey=${config.apiKey}`;
 
       if (this.useMockData) {
-        result = await this.get('http://localhost:3000/mockdata/currentconditions.json');
-      } else {
-        result = await this.get(`${this.baseUrl}/currentconditions/v1/${locationID}`);
+        url = config.mockData.localCurrentCondition;
       }
-      console.log(result);
-      let response: any = result[0];
-      return response;
+
+      return this.get(url)
+        .then((response) => response.json())
+        .then((data) => {
+          let response: CurrentConditions = data[0];
+          return response;
+        })
+        .catch((error) => {
+          console.log('ERROR Current conditions:', error);
+          throw error;
+        });
     } catch (error) {
       throw error;
     }
@@ -58,20 +60,22 @@ class WeatherService extends API {
 
   async fiveDayForcast(locationID: number) {
     try {
-      let result;
+      let url = `${this.baseUrl}/forecasts/v1/daily/5day/${locationID}?apikey=${config.apiKey}`;
 
       if (this.useMockData) {
-        result = await this.get('http://localhost:3000/mockdata/fivedayforcast.json');
-      } else {
-        result = await this.get(`${this.baseUrl}/forecasts/v1/daily/5day/${locationID}`);
+        url = config.mockData.localFiveDayForcast;
       }
 
-      if (result && result.status) {
-        let response: DailyForcast[] = result.data.DailyForecasts;
-        return response;
-      } else {
-        throw new Error('Fetching five day forcast data failed');
-      }
+      return this.get(url)
+        .then((response) => response.json())
+        .then((data) => {
+          let response: DailyForcast[] = data.DailyForecasts;
+          return response;
+        })
+        .catch((error) => {
+          console.log('ERROR Five day forecast:', error);
+          throw error;
+        });
     } catch (error) {
       throw error;
     }

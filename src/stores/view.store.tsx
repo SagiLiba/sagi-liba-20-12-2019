@@ -1,5 +1,6 @@
 import { observable, action, observe } from 'mobx';
 import StorageUtils from '../utils/storage.utils';
+import config from '../config/app.config';
 
 export default class ViewStore {
   @observable loadingView: boolean = false;
@@ -17,7 +18,6 @@ export default class ViewStore {
 
   @action
   init = (history: any) => {
-    this.setLoadingView(false);
     this.showFavoritesButton = true;
     this.favoritesPanelButton = false;
     this.anyFavorites = StorageUtils.getFavorites() ? true : false;
@@ -63,6 +63,13 @@ export default class ViewStore {
     const mobileImg = isInFavorites ? removeMobileImage : addMobileImage;
     const screenWidth = window.innerWidth;
     const mobileDesktopImage = screenWidth > mobileMaxWidth ? desktopImg : mobileImg;
+    console.log(isInFavorites ? 'remove' : 'add');
+    console.log(
+      'is in favorites? ',
+      isInFavorites,
+      mainKey,
+      screenWidth > mobileMaxWidth ? 'desktopImage' : 'mobileImage'
+    );
     return {
       isInFavorites,
       desktopImg,

@@ -53,9 +53,6 @@ export default class AddRemoveButton extends React.Component<IProps, IState> {
     StorageUtils.addToFavorites(weatherStore.mainKey, weatherStore.selectedSuggestion.LocalizedName);
     viewStore.toggleAddOrRemoveFavorites();
     viewStore.anyFavorites = true;
-    this.setState({
-      mobileDesktopImage: this.getImageObject().mobileDesktopImage
-    });
   };
 
   removeFromFavorites = () => {
@@ -65,9 +62,6 @@ export default class AddRemoveButton extends React.Component<IProps, IState> {
     if (StorageUtils.getFavorites().length == 0) {
       viewStore.anyFavorites = false;
     }
-    this.setState({
-      mobileDesktopImage: this.getImageObject().mobileDesktopImage
-    });
   };
 
   getImageObject = () => {
@@ -75,12 +69,13 @@ export default class AddRemoveButton extends React.Component<IProps, IState> {
   };
 
   render() {
+    console.log('addremove render');
     return (
       <div className={'add-remove-button'}>
         {viewStore.addOrRemoveFavorites ? (
-          <img src={this.state.mobileDesktopImage} onClick={this.removeFromFavorites} />
+          <img src={this.getImageObject().mobileDesktopImage} onClick={this.removeFromFavorites} />
         ) : (
-          <img src={this.state.mobileDesktopImage} onClick={this.addToFavorites} />
+          <img src={this.getImageObject().mobileDesktopImage} onClick={this.addToFavorites} />
         )}
       </div>
     );

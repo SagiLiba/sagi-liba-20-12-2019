@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default class API {
   baseUrl: string;
 
@@ -11,6 +9,6 @@ export default class API {
   }
 
   protected get(url: string) {
-    return axios.get(url);
+    return fetch(url);
   }
 }

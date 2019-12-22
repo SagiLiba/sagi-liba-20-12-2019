@@ -29,6 +29,10 @@ export default class StorageUtils {
           return obj;
         }, {});
       localStorage.setItem('favorites', JSON.stringify(filtered));
+
+      if (this.isThisCurrentHomepageCity(locationID)) {
+        this.removeHomepageCity();
+      }
     }
   }
 

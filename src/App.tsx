@@ -8,20 +8,24 @@ import Navbar from './components/navbar/navbar.component';
 import Homepage from './components/homepage/homepage.component';
 import Favorites from './components/favorites/favorites.component';
 import StorageUtils from './utils/storage.utils';
+import AppLoader from './components/apploader/apploader.component';
 
 const history: History | any = createBrowserHistory();
 const { weatherStore, viewStore } = rootStores;
 @observer
 export default class App extends React.Component {
   componentDidMount() {
+    viewStore.setLoadingView(true);
     weatherStore.init();
     viewStore.init(history);
     weatherStore.currentConditions && viewStore.setWeatherIconNumber(weatherStore.currentConditions.WeatherIcon);
+    viewStore.setLoadingView(false);
   }
 
   render() {
     return (
       <div className='app-container'>
+        <AppLoader />
         <Navbar history={history} />
         <Router history={history}>
           <Switch>
