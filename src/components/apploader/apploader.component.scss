@@ -2,11 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  img {
-    border-radius: 50%;
-    height: 150px;
-    box-shadow: 0px 0px 44px 104px #dbdbdb;
-    position: absolute;
-    top: 359px;
-  }
+  width: 100%;
+  height: 1000p;
+  position: absolute;
+  top: 40%;
+  color: white;
+  font-weight: bold;
+  font-size: 49px;
+  background-color: royalblue;
+  padding: 17px;
+  opacity: 0.8;
+  z-index: 100;
 }

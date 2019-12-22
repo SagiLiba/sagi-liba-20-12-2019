@@ -24,6 +24,7 @@ export default class Autocomplete extends React.Component<IProps> {
   };
 
   onClickSuggestion = (suggestion: Suggestion) => {
+    viewStore.setLoadingView(true);
     weatherStore.setSearchText(suggestion.LocalizedName);
     weatherStore.setSelectedSuggestion(suggestion);
     StorageUtils.isInFavorites(suggestion.Key)
@@ -36,6 +37,7 @@ export default class Autocomplete extends React.Component<IProps> {
       viewStore.showFavoritesButton = true;
       this.props.history.push('/');
     }
+    viewStore.setLoadingView(false);
   };
 
   showHideSuggestions = (show: boolean) => {

@@ -67,19 +67,22 @@ class WeatherStore {
 
   @action
   getCurrentConditions(locationID: number) {
+    this.viewStore.setLoadingView(true);
     WeatherService.currentConditions(locationID)
       .then((result: any) => {
         this.currentConditions = result;
       })
       .catch((error) => {
         throw error;
+      })
+      .finally(() => {
+        this.viewStore.setLoadingView(false);
       });
   }
 
   @action
   getFavoritesCurrentConditions(favoritesObject: any) {
     this.favoritesCurrentCondition.clear();
-
     Object.entries(favoritesObject).forEach(([key, value]) => {
       WeatherService.currentConditions(parseInt(key))
         .then((result: any) => {
@@ -95,6 +98,7 @@ class WeatherStore {
 
   @action
   getFiveDayForcast(locationID: number, setIcon?: boolean) {
+    this.viewStore.setLoadingView(true);
     WeatherService.fiveDayForcast(locationID)
       .then((results: any) => {
         this.clearFiveDayForcast();
@@ -103,6 +107,9 @@ class WeatherStore {
       })
       .catch((error) => {
         throw error;
+      })
+      .finally(() => {
+        this.viewStore.setLoadingView(false);
       });
   }
 

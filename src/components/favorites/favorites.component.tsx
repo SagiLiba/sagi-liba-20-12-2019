@@ -41,6 +41,7 @@ export default class Favorites extends React.Component {
   }
 
   removeFavorite = () => {
+    viewStore.setLoadingView(true);
     if (viewStore.selectedFavoritesPanelKey) {
       viewStore.favoritesPanelButton = false;
       StorageUtils.removeFromFavorites(viewStore.selectedFavoritesPanelKey);
@@ -49,14 +50,17 @@ export default class Favorites extends React.Component {
         StorageUtils.removeHomepageCity();
       }
     }
+    viewStore.setLoadingView(false);
   };
 
   setHomepage = () => {
+    viewStore.setLoadingView(true);
     if (viewStore.selectedFavoritesPanelKey) {
       StorageUtils.homepageCity(viewStore.selectedFavoritesPanelKey, viewStore.selectedFavoritesTemperature);
       weatherStore.cityName = viewStore.selectedFavoritesCityName;
       weatherStore.getFiveDayForcast(viewStore.selectedFavoritesPanelKey);
     }
+    viewStore.setLoadingView(true);
   };
 
   render() {

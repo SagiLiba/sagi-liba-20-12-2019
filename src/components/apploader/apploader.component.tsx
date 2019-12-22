@@ -6,14 +6,6 @@ const { viewStore } = rootStores;
 @observer
 export default class AppLoader extends React.Component {
   render() {
-    return (
-      <>
-        {viewStore.loadingView && (
-          <div className='loader'>
-            <img src={require('../../assets/loader2.gif')} />
-          </div>
-        )}
-      </>
-    );
+    return <>{viewStore.loadingView && <div className='loader'>Loading</div>}</>;
   }
 }
